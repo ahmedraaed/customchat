@@ -11,6 +11,19 @@ dependencies:
   flutter:
     sdk: flutter
 
+  pusher_channels_flutter: ^2.1.2
+  just_audio:
+  voice_message_package: ^1.0.41
+  record: ^4.4.4
+  jiffy: ^5.0.0
+  open_filex: ^4.3.2
+  provider:
+  dio: ^4.0.6
+  url_launcher:
+  flutter_screenutil:
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
