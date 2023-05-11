@@ -7,6 +7,7 @@ class DioHelper {
   //     SharedPreferencesHelper.getData(key: "accesstoken") ?? "";
 
   static init() {
+    print("food");
     dio = Dio(BaseOptions(
       receiveDataWhenStatusError: true,
         receiveTimeout:10000000,

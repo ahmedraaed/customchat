@@ -56,9 +56,12 @@ class _CustomChatState extends State<CustomChat> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future(() async {
-      await DioHelper.init();
-      await PusherService.instance.init(
+    Future(() async {    print("food2");
+
+    await DioHelper.init();
+    print("food3");
+
+    await PusherService.instance.init(
         myApiKey: widget.apiKey,
         myCluster: widget.cluster,
       );
