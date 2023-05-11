@@ -76,8 +76,6 @@ class _CustomChatState extends State<CustomChat> {
             addChatMessageUrl: widget.addChatMessageUrl,
             getChatMessageUrl: widget.getChatMessageUrl),
         child: ChatScreen(
-
-            cluster: widget.cluster,
             partnerId: widget.partnerId,
             partnerDeviceToken: widget.partnerDeviceToken,
             customAppBar: widget.customAppBar,
