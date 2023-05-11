@@ -55,16 +55,16 @@ class _CustomChatState extends State<CustomChat> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future(() async {    print("food2");
-
-    await DioHelper.init();
-    print("food3");
-
-    await PusherService.instance.init(
-        myApiKey: widget.apiKey,
-        myCluster: widget.cluster,
-      );
-    });
+    // Future(() async {    print("food2");
+    //
+    // await DioHelper.init();
+    // print("food3");
+    //
+    // await PusherService.instance.init(
+    //     myApiKey: widget.apiKey,
+    //     myCluster: widget.cluster,
+    //   );
+    // });
   }
   @override
   Widget build(BuildContext context) {
@@ -81,6 +81,9 @@ class _CustomChatState extends State<CustomChat> {
                 addChatMessageUrl: widget.addChatMessageUrl,
                 getChatMessageUrl: widget.getChatMessageUrl),
             child: ChatScreen(
+              apiKey: widget.apiKey,
+                cluster: widget.cluster,
+                placeId: widget.placeId,
                 partnerId: widget.partnerId,
                 partnerDeviceToken: widget.partnerDeviceToken,
                 customAppBar: widget.customAppBar,

@@ -25,7 +25,20 @@ class ChatCubit extends ChangeNotifier {
     required this.getChatIdUrl,
     required this.addChatMessageUrl,
     required this.getChatMessageUrl,
-});
+})  {
+    print("food2");
+    init();
+
+
+    // await PusherService.instance.init(
+    //   myApiKey: apiKey,
+    //   myCluster: widget.cluster,
+    // );
+  }
+  init()async{
+    await DioHelper.init();
+    print("food3");
+  }
 
   int userId;
   String pusherChannel;

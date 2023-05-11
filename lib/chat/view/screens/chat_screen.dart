@@ -14,8 +14,8 @@ import '../widgets/showing_message.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key,
-
-
+    required this.apiKey,
+    required this.cluster,
     this.placeId,
     required this.partnerId,
     required this.partnerDeviceToken,
@@ -24,6 +24,8 @@ class ChatScreen extends StatefulWidget {
     required this.sendIcon,
   }) : super(key: key);
 
+  String apiKey;
+  String cluster;
   int? placeId;
   int partnerId;
   String? partnerDeviceToken;
@@ -47,13 +49,13 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Future(() async {
-    //   await PusherService.instance.init(
-    //     myApiKey:widget.apiKey ,
-    //     myCluster:widget.cluster ,
-    //   );
-    //
-    // });
+    Future(() async {
+      await PusherService.instance.init(
+        myApiKey:widget.apiKey ,
+        myCluster:widget.cluster ,
+      );
+
+    });
     chatCubit.getChatId(
       hallId: widget.placeId,
       partnerId: widget.partnerId,
