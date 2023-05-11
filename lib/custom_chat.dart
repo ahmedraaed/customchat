@@ -5,6 +5,7 @@ import 'package:custom_chat/chat/view/screens/chat_screen.dart';
 import 'package:custom_chat/service/pusher_services/dio_helper.dart';
 import 'package:custom_chat/service/pusher_services/pusher_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CustomChat extends StatefulWidget {
@@ -65,21 +66,30 @@ class _CustomChatState extends State<CustomChat> {
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => ChatCubit(
-            pusherChannel: widget.pusherChannel,
-            pusherEventRideStatusUpdated: widget.pusherEventRideStatusUpdated,
-            userId: widget.userId,
-            accessToken: widget.accessToken,
-            userDeviceToken: widget.userDeviceToken,
-            getChatIdUrl: widget.getChatIdUrl,
-            addChatMessageUrl: widget.addChatMessageUrl,
-            getChatMessageUrl: widget.getChatMessageUrl),
-        child: ChatScreen(
-            partnerId: widget.partnerId,
-            partnerDeviceToken: widget.partnerDeviceToken,
-            customAppBar: widget.customAppBar,
-            appBarHeight: widget.appBarHeight,
-            sendIcon: widget.sendIcon));
+    return ScreenUtilInit(
+
+      builder: (BuildContext context, Widget? child) {
+        return MaterialApp(
+
+            home: ChangeNotifierProvider(
+                create: (context) => ChatCubit(
+                    pusherChannel: widget.pusherChannel,
+                    pusherEventRideStatusUpdated: widget.pusherEventRideStatusUpdated,
+                    userId: widget.userId,
+                    accessToken: widget.accessToken,
+                    userDeviceToken: widget.userDeviceToken,
+                    getChatIdUrl: widget.getChatIdUrl,
+                    addChatMessageUrl: widget.addChatMessageUrl,
+                    getChatMessageUrl: widget.getChatMessageUrl),
+                child: ChatScreen(
+                    partnerId: widget.partnerId,
+                    partnerDeviceToken: widget.partnerDeviceToken,
+                    customAppBar: widget.customAppBar,
+                    appBarHeight: widget.appBarHeight,
+                    sendIcon: widget.sendIcon))
+
+        );
+      },
+    );
   }
 }
