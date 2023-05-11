@@ -106,8 +106,8 @@ class _ChatScreenState extends State<ChatScreen> {
                               if(index < chatCubit.listMessage.length) {
                                 return Align(
                                   alignment: chatCubit.listMessage[index].fromType == "partner"
-                                      ? Alignment.topLeft
-                                      : Alignment.centerRight,
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
                                   child: SizedBox(
                                     width: 250,
                                     child: Column(
