@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 class DioHelper {
   // out init method in main method to excute first when app is open
-  static  Dio? dio;
+  static late Dio dio;
   // static String accesstoken =
   //     SharedPreferencesHelper.getData(key: "accesstoken") ?? "";
 
@@ -28,7 +28,7 @@ class DioHelper {
       {required String url,
       required Map<String, dynamic> data,
       String token = ""}) async {
-    return await dio!.post(url,
+    return await dio.post(url,
         data: data,
         options: Options(headers: {
           'Accept': 'application/json',
@@ -41,7 +41,7 @@ class DioHelper {
         required dynamic data,
         required Map<String, dynamic> headers}) async {
     try {
-      Response response = await dio!.post(
+      Response response = await dio.post(
         url,
         options: Options(headers: headers),
         data: data,
@@ -58,7 +58,7 @@ class DioHelper {
       {required String url,
         required List<Map<String, dynamic>> data,
         String token = ""}) async {
-    return await dio!.post(url,
+    return await dio.post(url,
         data: data,
         options: Options(headers: {
           'Accept': 'application/json',
@@ -69,7 +69,7 @@ class DioHelper {
 
   static Future<Response> deleteData(
       {required String url, required Map<String, dynamic> data}) async {
-    return await dio!.delete(
+    return await dio.delete(
       url,
       data: data,
     );
@@ -77,6 +77,6 @@ class DioHelper {
 
   static Future<Response> updateData(
       {required String url, required Map<String, dynamic> data}) async {
-    return await dio!.put(url, data: data);
+    return await dio.put(url, data: data);
   }
 }
