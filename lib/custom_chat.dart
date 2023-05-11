@@ -2,10 +2,12 @@ library custom_chat;
 
 import 'package:custom_chat/chat/cubit/chat_cubit.dart';
 import 'package:custom_chat/chat/view/screens/chat_screen.dart';
+import 'package:custom_chat/service/pusher_services/dio_helper.dart';
+import 'package:custom_chat/service/pusher_services/pusher_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CustomChat extends StatelessWidget {
+class CustomChat extends StatefulWidget {
    CustomChat({
     Key? key,
   required this.pusherChannel,
@@ -44,25 +46,42 @@ class CustomChat extends StatelessWidget {
   Widget sendIcon;
 
   @override
+  State<CustomChat> createState() => _CustomChatState();
+}
+
+class _CustomChatState extends State<CustomChat> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future(() async {
+      await DioHelper.init();
+      await PusherService.instance.init(
+        myApiKey: widget.apiKey,
+        myCluster: widget.cluster,
+      );
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
         create: (context) => ChatCubit(
-            pusherChannel: pusherChannel,
-            pusherEventRideStatusUpdated: pusherEventRideStatusUpdated,
-            userId: userId,
-            accessToken: accessToken,
-            userDeviceToken: userDeviceToken,
-            getChatIdUrl: getChatIdUrl,
-            addChatMessageUrl: addChatMessageUrl,
-            getChatMessageUrl: getChatMessageUrl),
+            pusherChannel: widget.pusherChannel,
+            pusherEventRideStatusUpdated: widget.pusherEventRideStatusUpdated,
+            userId: widget.userId,
+            accessToken: widget.accessToken,
+            userDeviceToken: widget.userDeviceToken,
+            getChatIdUrl: widget.getChatIdUrl,
+            addChatMessageUrl: widget.addChatMessageUrl,
+            getChatMessageUrl: widget.getChatMessageUrl),
         child: ChatScreen(
-          placeId: placeId,
-            apiKey: apiKey,
-            cluster: cluster,
-            partnerId: partnerId,
-            partnerDeviceToken: partnerDeviceToken,
-            customAppBar: customAppBar,
-            appBarHeight: appBarHeight,
-            sendIcon: sendIcon));
+
+            cluster: widget.cluster,
+            partnerId: widget.partnerId,
+            partnerDeviceToken: widget.partnerDeviceToken,
+            customAppBar: widget.customAppBar,
+            appBarHeight: widget.appBarHeight,
+            sendIcon: widget.sendIcon));
   }
 }
