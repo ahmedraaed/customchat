@@ -105,7 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               chatCubit.sendTime(index: index);
                               if(index < chatCubit.listMessage.length) {
                                 return Align(
-                                  alignment: chatCubit.listMessage[index].fromType == "partner"
+                                  alignment: chatCubit.listMessage[index].fromType != "partner"
                                       ? Alignment.centerLeft
                                       : Alignment.centerRight,
                                   child: SizedBox(
