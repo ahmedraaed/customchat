@@ -50,6 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
     // TODO: implement initState
     super.initState();
     Future(() async {
+      //hokkkkkkkkkkk
       await PusherService.instance.init(
         myApiKey:widget.apiKey ,
         myCluster:widget.cluster ,
