@@ -4,7 +4,7 @@ import '../../model/chat_message_model.dart';
 
 
 // the way to send message that can be one of this options (text-audio-photo-file)
-Future  sendMessage({required var controller,required var chatCubit,required var widget}) async {
+Future  sendMessage({required var controller,required var chatCubit,required String deviceToken}) async {
   print("text****************************************");
   if (controller.text.isNotEmpty) {
     print("text****************************************");
@@ -19,7 +19,7 @@ Future  sendMessage({required var controller,required var chatCubit,required var
         chatId: chatCubit.chatIdModel!.data!.id!,
         messageType: "text",
         message: controller.text.trim(),
-        partnerToken: widget.itemDetailsModel.partner!.deviceToken!);
+        partnerToken: deviceToken);
     controller.clear();
   }
   else if (chatCubit.imageFile !=null) {
@@ -37,7 +37,7 @@ Future  sendMessage({required var controller,required var chatCubit,required var
         messageType: "image",
         file: await MultipartFile.fromFile(chatCubit.imageFile!.path),
         fileName: chatCubit.imageName,
-        partnerToken: widget.itemDetailsModel.partner!.deviceToken!);
+        partnerToken: deviceToken!);
     chatCubit.clearImage();
   }
   else if (chatCubit.file !=null) {
@@ -57,7 +57,7 @@ Future  sendMessage({required var controller,required var chatCubit,required var
         messageType: "file",
         file: await MultipartFile.fromFile(chatCubit.file!.path),
         fileName: chatCubit.fileName,
-        partnerToken: widget.itemDetailsModel.partner!.deviceToken!);
+        partnerToken: deviceToken!);
     chatCubit.clearFile();
   } else if (chatCubit.AudioFile !=null) {
     print("text****************************************");
@@ -76,7 +76,7 @@ Future  sendMessage({required var controller,required var chatCubit,required var
         messageType: "audio",
         file: await MultipartFile.fromFile(chatCubit.AudioFile!.path),
         fileName: "audio",
-        partnerToken: widget.itemDetailsModel.partner!.deviceToken!);
+        partnerToken: deviceToken!);
     chatCubit.clearAudio();
   }
   else{

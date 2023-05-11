@@ -166,7 +166,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     InkWell(
                         onTap: () async {
                           setState(() {
-                            sendMessage(controller: controller, chatCubit: chatCubit, widget: widget);
+                            sendMessage(controller: controller, chatCubit: chatCubit,deviceToken: widget.partnerDeviceToken! );
                           });
                         },
                         child:widget.sendIcon),
