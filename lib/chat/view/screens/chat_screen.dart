@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:provider/provider.dart';
 
@@ -95,9 +94,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           child: ListView.separated(
                             controller: scrollController,
                             reverse: true,
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             separatorBuilder: (context, index) {
-                              return SizedBox(height: 20.h);
+                              return SizedBox(height: 20);
                             },
                             itemBuilder: (context, index) {
                               chatCubit.sendTime(index: index);
@@ -107,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       ? Alignment.centerLeft
                                       : Alignment.centerRight,
                                   child: SizedBox(
-                                    width: 250.w,
+                                    width: 250,
                                     child: Column(
                                       crossAxisAlignment: chatCubit.listMessage[index]
                                                   .fromType ==
@@ -121,12 +120,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                                 .messageType!,
                                             index: index),
                                         SizedBox(
-                                          height: 1.h,
+                                          height: 1,
                                         ),
                                         Text(
                                           chatCubit.time,
                                           style: TextStyle(
-                                              fontSize: 11.sp,
+                                              fontSize: 11,
                                               color: Colors.grey),
                                           textAlign: TextAlign.end,
                                         )
@@ -136,7 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 );
                               }else{
                                 return Padding(
-                                  padding: EdgeInsets.only(bottom: 10.h),
+                                  padding: EdgeInsets.only(bottom: 10),
                                   child:  const Center(
                                       child: CircularProgressIndicator(color: Colors.black,)),
                                 );
@@ -189,7 +188,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     decoration: InputDecoration(
                                       hintStyle: TextStyle(
                                           color: Colors.grey.withOpacity(0.7),
-                                          fontSize: 13.sp),
+                                          fontSize: 13),
                                       hintText: 'اكتب رسالتك هنا',
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(36),
