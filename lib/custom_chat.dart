@@ -25,6 +25,7 @@ class CustomChat extends StatefulWidget {
   required this.appBarHeight,
   required this.customAppBar,
   required this.sendIcon,
+  required this.baseUrl,
    this.placeId,
 
   }) : super(key: key);
@@ -32,6 +33,7 @@ class CustomChat extends StatefulWidget {
   String pusherEventRideStatusUpdated;
   String apiKey;
   String cluster;
+  String baseUrl;
   String getChatIdUrl;
   String addChatMessageUrl;
   String getChatMessageUrl;
@@ -88,7 +90,7 @@ class _CustomChatState extends State<CustomChat> {
                 partnerDeviceToken: widget.partnerDeviceToken,
                 customAppBar: widget.customAppBar,
                 appBarHeight: widget.appBarHeight,
-                sendIcon: widget.sendIcon, baseUrl: '',))
+                sendIcon: widget.sendIcon, baseUrl:widget.baseUrl,))
 
     );
   }
