@@ -4,7 +4,9 @@ import 'dart:io';
 
 
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -306,68 +308,68 @@ class ChatCubit extends ChangeNotifier {
 
 
 
-  // selectFile()async{
-  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
-  //
-  //   if (result != null) {
-  //      file = File(result.files.single.path!);
-  //     PlatformFile platformFile=result.files.first;
-  //     fileName=platformFile.name;
-  //     notifyListeners();
-  //
-  //   } else {
-  //     // User canceled the picker
-  //     print("you not select file");
-  //   }
-  //
-  // }
+  selectFile()async{
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-  // clearFile()
-  // {
-  //   file=null;
-  //   notifyListeners();
-  // }
+    if (result != null) {
+       file = File(result.files.single.path!);
+      PlatformFile platformFile=result.files.first;
+      fileName=platformFile.name;
+      notifyListeners();
 
-  // selectImage()async{
-  //   final ImagePicker _picker = ImagePicker();
-  //
-  //   final XFile? images = await _picker.pickImage(source: ImageSource.camera);
-  //
-  //   if(images !=null) {
-  //     imageFile = File(images.path);
-  //     imageName = images.name;
-  //     print(images.path);
-  //     print(imageFile!.path);
-  //     notifyListeners();
-  //   }
-  // }
+    } else {
+      // User canceled the picker
+      print("you not select file");
+    }
 
-  // clearImage()
-  // {
-  //   imageFile=null;
-  //   notifyListeners();
-  // }
+  }
+
+  clearFile()
+  {
+    file=null;
+    notifyListeners();
+  }
+
+  selectImage()async{
+    final ImagePicker _picker = ImagePicker();
+
+    final XFile? images = await _picker.pickImage(source: ImageSource.camera);
+
+    if(images !=null) {
+      imageFile = File(images.path);
+      imageName = images.name;
+      print(images.path);
+      print(imageFile!.path);
+      notifyListeners();
+    }
+  }
+
+  clearImage()
+  {
+    imageFile=null;
+    notifyListeners();
+  }
 
 
-  // setAudio(String newAudio)
-  // {
-  //   audio=newAudio;
-  //   notifyListeners();
-  // }
-  //
-  // selectAudio()async{
-  //
-  //   AudioFile=File(audio!);
-  //   print(AudioFile!.path);
-  //   notifyListeners();
-  //   }
-  //
-  // clearAudio()
-  // {
-  //   AudioFile=null;
-  //   notifyListeners();
-  //
-  // }
+  setAudio(String newAudio)
+  {
+    audio=newAudio;
+    notifyListeners();
+  }
+
+  selectAudio()async{
+
+    AudioFile=File(audio!);
+    print(AudioFile!.path);
+    notifyListeners();
+    }
+
+  clearAudio()
+  {
+    AudioFile=null;
+    notifyListeners();
+
+  }
 
 
 

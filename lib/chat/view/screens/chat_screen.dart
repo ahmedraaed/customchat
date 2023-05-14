@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:custom_chat/chat/view/screens/record_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -22,16 +23,30 @@ class ChatScreen extends StatefulWidget {
     required this.customAppBar,
     required this.appBarHeight,
     required this.sendIcon,
+    required this.baseUrl,
+    this.imageIcon,
+    this.voiceIcon,
+    this.fileIcon,
+    this.enableFile=false,
+    this.enableImage=false,
+    this.enableVoice=false,
   }) : super(key: key);
 
   String apiKey;
   String cluster;
+  String baseUrl;
   int? placeId;
   int partnerId;
   String? partnerDeviceToken;
   Widget customAppBar;
   Widget sendIcon;
   double appBarHeight;
+  Widget? voiceIcon;
+  Widget? fileIcon;
+  Widget? imageIcon;
+  bool enableImage;
+  bool enableFile;
+  bool enableVoice;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -118,6 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                           : CrossAxisAlignment.start,
                                       children: [
                                         ShowingMessage(
+                                          baseUrl:widget.baseUrl ,
                                             chatCubit: chatCubit,
                                             messageType: chatCubit.listMessage[index]
                                                 .messageType!,
@@ -175,16 +191,16 @@ class _ChatScreenState extends State<ChatScreen> {
                       textDirection: TextDirection.ltr,
                       child: Expanded(
                         child:
-                        // chatCubit.imageFile == null
-                        //     ? (chatCubit.file == null
-                        //         ? (chatCubit.AudioFile ==null?
+                        chatCubit.imageFile == null
+                            ? (chatCubit.file == null
+                                ? (chatCubit.AudioFile ==null?
                             TextFormField(
                                     controller: controller,
-                                    // onChanged: (val) {
-                                    //
-                                    //   controller.text = val;
-                                    //   print(controller.text);
-                                    // },
+                                    onChanged: (val) {
+
+                                      controller.text = val;
+                                      print(controller.text);
+                                    },
                                     textAlign: TextAlign.right,
 
                                     textDirection: TextDirection.ltr,
@@ -213,192 +229,188 @@ class _ChatScreenState extends State<ChatScreen> {
                                           borderSide: BorderSide(
                                               color:
                                                   Colors.grey.withOpacity(0.5))),
-                                      // prefixIcon: Padding(
-                                      //   padding: const EdgeInsets.only(left: 20),
-                                      //   child: Row(
-                                      //     mainAxisSize: MainAxisSize.min,
-                                      //     children: [
-                                      //       InkWell(
-                                      //           onTap: () {
-                                      //             setState(() {
-                                      //               chatCubit.selectImage();
-                                      //             });
-                                      //           },
-                                      //           child: const Icon(
-                                      //               Icons.camera_alt_outlined,
-                                      //               color:
-                                      //                   AppColor.redColor)),
-                                      //       const SizedBox(width: 7),
-                                      //       InkWell(
-                                      //         onTap: (){
-                                      //           chatCubit.selectFile();
-                                      //         },
-                                      //         child: const Icon(
-                                      //           Icons.file_copy_sharp,
-                                      //           color: AppColor.redColor,
-                                      //         ),
-                                      //       ),
-                                      //       const SizedBox(width: 7),
-                                      //       InkWell(
-                                      //           onTap: () {
-                                      //             // Navigator.push(
-                                      //             //     context,
-                                      //             //     MaterialPageRoute(
-                                      //             //       builder: (context) =>
-                                      //             //           Audoi(),
-                                      //             //     ));
-                                      //             showModalBottomSheet(
-                                      //               context: context,
-                                      //                 isScrollControlled: true,
-                                      //
-                                      //               builder: (context) {
-                                      //
-                                      //               return  SizedBox(
-                                      //                 height: 150.h,
-                                      //                 child: AudioRecorder(
-                                      //                   onStop: (path) {
-                                      //                     if (kDebugMode) print('Recorded file path: $path');
-                                      //                     setState(() {
-                                      //                       audioPath = path;
-                                      //                       showPlayer = true;
-                                      //                       chatCubit.setAudio(path);
-                                      //                       chatCubit.selectAudio();
-                                      //                       print(path);
-                                      //                       Navigator.pop(context);
-                                      //                     });
-                                      //                   },
-                                      //                 ),
-                                      //               );
-                                      //             },);
-                                      //           },
-                                      //           child: const Icon(
-                                      //               Icons.settings_voice_rounded,
-                                      //               color:
-                                      //               AppColor.redColor)),
-                                      //       const SizedBox(width: 7),
-                                      //     ],
-                                      //   ),
-                                      // ),
+                                      prefixIcon: Padding(
+                                        padding: const EdgeInsets.only(left: 20),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                           widget.enableImage? InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    chatCubit.selectImage();
+                                                  });
+                                                },
+                                                child:widget.imageIcon?? const Icon(
+                                                    Icons.camera_alt_outlined,
+                                                    )):Container(),
+                                            const SizedBox(width: 7),
+                                           widget.enableFile? InkWell(
+                                              onTap: (){
+                                                chatCubit.selectFile();
+                                              },
+                                              child:widget.fileIcon?? const Icon(
+                                                Icons.file_copy_sharp,
+                                              ),
+                                            ):Container(),
+                                            const SizedBox(width: 7),
+                                           widget.enableVoice? InkWell(
+                                                onTap: () {
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           Audoi(),
+                                                  //     ));
+                                                  showModalBottomSheet(
+                                                    context: context,
+                                                      isScrollControlled: true,
+
+                                                    builder: (context) {
+
+                                                    return  SizedBox(
+                                                      height: 150,
+                                                      child: AudioRecorder(
+                                                        onStop: (path) {
+                                                          if (kDebugMode) print('Recorded file path: $path');
+                                                          setState(() {
+                                                            audioPath = path;
+                                                            showPlayer = true;
+                                                            chatCubit.setAudio(path);
+                                                            chatCubit.selectAudio();
+                                                            print(path);
+                                                            Navigator.pop(context);
+                                                          });
+                                                        },
+                                                      ),
+                                                    );
+                                                  },);
+                                                },
+                                                child:widget.voiceIcon?? const Icon(
+                                                    Icons.settings_voice_rounded,)):Container(),
+                                            const SizedBox(width: 7),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   )
-                        //     :
-                        // Container(
-                        //   height: 70.h,
-                        //   padding: EdgeInsetsDirectional.all(10.sp),
-                        //   decoration: BoxDecoration(
-                        //     border: Border.all(
-                        //         color: Colors.grey, width: 1.w),
-                        //     borderRadius: BorderRadius.circular(10.r),
-                        //   ),
-                        //   child: Stack(children: [
-                        //     PositionedDirectional(
-                        //         bottom: 0,
-                        //         end: 0,
-                        //         child: Image(
-                        //           image: const AssetImage("assets/images/audio_icon.png"),
-                        //           height: 25.h,
-                        //           width: 25.w,
-                        //         )),
-                        //     PositionedDirectional(
-                        //         end: 0,
-                        //         top: 0,
-                        //         child: InkWell(
-                        //           onTap: () {
-                        //             setState(() {
-                        //               chatCubit.clearAudio();
-                        //             });
-                        //           },
-                        //           child: CircleAvatar(
-                        //               radius: 10.r,
-                        //               backgroundColor: Colors.redAccent,
-                        //               child: Center(
-                        //                 child: Icon(
-                        //                   Icons.clear,
-                        //                   color: Colors.white,
-                        //                   size: 20.sp,
-                        //                 ),
-                        //               )),
-                        //         )),
-                        //   ]),
-                        // ) )
-                        //         : Container(
-                        //             height: 70.h,
-                        //             padding: EdgeInsetsDirectional.all(10.sp),
-                        //             decoration: BoxDecoration(
-                        //               border: Border.all(
-                        //                   color: Colors.grey, width: 1.w),
-                        //               borderRadius: BorderRadius.circular(10.r),
-                        //             ),
-                        //             child: Stack(children: [
-                        //               PositionedDirectional(
-                        //                   bottom: 0,
-                        //                   end: 0,
-                        //                   child: Icon(
-                        //                     Icons.file_copy,
-                        //                     size: 25.sp,
-                        //                   )),
-                        //               PositionedDirectional(
-                        //                   end: 0,
-                        //                   top: 0,
-                        //                   child: InkWell(
-                        //                     onTap: () {
-                        //                       setState(() {
-                        //                         chatCubit.clearFile();
-                        //                       });
-                        //                     },
-                        //                     child: CircleAvatar(
-                        //                         radius: 10.r,
-                        //                         backgroundColor: Colors.redAccent,
-                        //                         child: Center(
-                        //                           child: Icon(
-                        //                             Icons.clear,
-                        //                             color: Colors.white,
-                        //                             size: 20.sp,
-                        //                           ),
-                        //                         )),
-                        //                   )),
-                        //             ]),
-                        //           ))
-                        //     : Container(
-                        //         height: 120.h,
-                        //         padding: EdgeInsetsDirectional.all(10.sp),
-                        //         decoration: BoxDecoration(
-                        //           border:
-                        //               Border.all(color: Colors.grey, width: 1.w),
-                        //           borderRadius: BorderRadius.circular(10.r),
-                        //         ),
-                        //         child: Stack(children: [
-                        //           PositionedDirectional(
-                        //               bottom: 0,
-                        //               end: 0,
-                        //               child: Image.file(
-                        //                 File(chatCubit.imageFile!.path),
-                        //                 height: 90.h,
-                        //                 width: 150.w,
-                        //                 fit: BoxFit.cover,
-                        //               )),
-                        //           PositionedDirectional(
-                        //               end: 0,
-                        //               top: 0,
-                        //               child: InkWell(
-                        //                 onTap: () {
-                        //                   setState(() {
-                        //                     chatCubit.clearImage();
-                        //                   });
-                        //                 },
-                        //                 child: CircleAvatar(
-                        //                     radius: 10.r,
-                        //                     backgroundColor: Colors.redAccent,
-                        //                     child: Center(
-                        //                       child: Icon(
-                        //                         Icons.clear,
-                        //                         color: Colors.white,
-                        //                         size: 20.sp,
-                        //                       ),
-                        //                     )),
-                        //               )),
-                        //         ]),
-                        //       ),
+                            :
+                        Container(
+                          height: 70,
+                          padding: EdgeInsetsDirectional.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.grey, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Stack(children: [
+                            const PositionedDirectional(
+                                bottom: 0,
+                                end: 0,
+                                child: Image(
+                                  image: AssetImage("assets/images/audio_icon.png"),
+                                  height: 25,
+                                  width: 25,
+                                )),
+                            PositionedDirectional(
+                                end: 0,
+                                top: 0,
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      chatCubit.clearAudio();
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: Colors.redAccent,
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.clear,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      )),
+                                )),
+                          ]),
+                        ) )
+                                : Container(
+                                    height: 70,
+                                    padding: EdgeInsetsDirectional.all(10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Stack(children: [
+                                      PositionedDirectional(
+                                          bottom: 0,
+                                          end: 0,
+                                          child: Icon(
+                                            Icons.file_copy,
+                                            size: 25,
+                                          )),
+                                      PositionedDirectional(
+                                          end: 0,
+                                          top: 0,
+                                          child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                chatCubit.clearFile();
+                                              });
+                                            },
+                                            child: CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor: Colors.redAccent,
+                                                child: Center(
+                                                  child: Icon(
+                                                    Icons.clear,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ),
+                                                )),
+                                          )),
+                                    ]),
+                                  ))
+                            : Container(
+                                height: 120,
+                                padding: EdgeInsetsDirectional.all(10),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Stack(children: [
+                                  PositionedDirectional(
+                                      bottom: 0,
+                                      end: 0,
+                                      child: Image.file(
+                                        File(chatCubit.imageFile!.path),
+                                        height: 90,
+                                        width: 150,
+                                        fit: BoxFit.cover,
+                                      )),
+                                  PositionedDirectional(
+                                      end: 0,
+                                      top: 0,
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            chatCubit.clearImage();
+                                          });
+                                        },
+                                        child: CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor: Colors.redAccent,
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.clear,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                            )),
+                                      )),
+                                ]),
+                              ),
                       ),
                     ),
                   ],

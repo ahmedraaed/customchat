@@ -4,7 +4,7 @@ version: 0.0.1
 homepage: https://github.com/ahmedraaed/customchat.git
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=2.19.2 <3.0.0'
 #  flutter: ">=1.17.0"
 
 dependencies:
@@ -20,6 +20,9 @@ dependencies:
   provider:
   dio: ^4.0.6
   url_launcher:
+  image_picker:
+  file_picker:
+  hexcolor:
 #  flutter_screenutil:
 
 

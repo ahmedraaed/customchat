@@ -88,7 +88,7 @@ class _CustomChatState extends State<CustomChat> {
                 partnerDeviceToken: widget.partnerDeviceToken,
                 customAppBar: widget.customAppBar,
                 appBarHeight: widget.appBarHeight,
-                sendIcon: widget.sendIcon))
+                sendIcon: widget.sendIcon, baseUrl: '',))
 
     );
   }
