@@ -2,8 +2,7 @@ library custom_chat;
 
 import 'package:custom_chat/chat/cubit/chat_cubit.dart';
 import 'package:custom_chat/chat/view/screens/chat_screen.dart';
-import 'package:custom_chat/service/pusher_services/dio_helper.dart';
-import 'package:custom_chat/service/pusher_services/pusher_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +25,13 @@ class CustomChat extends StatefulWidget {
   required this.customAppBar,
   required this.sendIcon,
   required this.baseUrl,
+   this.voiceIcon,
+   this.fileIcon,
+   this.imageIcon,
    this.placeId,
+   this.enableVoice=false,
+   this.enableFile=false,
+   this.enableImage=false,
 
   }) : super(key: key);
   String pusherChannel;
@@ -46,6 +51,12 @@ class CustomChat extends StatefulWidget {
   double appBarHeight;
   Widget customAppBar;
   Widget sendIcon;
+   Widget? voiceIcon;
+   Widget? fileIcon;
+   Widget? imageIcon;
+   bool enableImage;
+   bool enableFile;
+   bool enableVoice;
 
   @override
   State<CustomChat> createState() => _CustomChatState();
@@ -83,6 +94,7 @@ class _CustomChatState extends State<CustomChat> {
                 addChatMessageUrl: widget.addChatMessageUrl,
                 getChatMessageUrl: widget.getChatMessageUrl),
             child: ChatScreen(
+
               apiKey: widget.apiKey,
                 cluster: widget.cluster,
                 placeId: widget.placeId,
@@ -90,7 +102,16 @@ class _CustomChatState extends State<CustomChat> {
                 partnerDeviceToken: widget.partnerDeviceToken,
                 customAppBar: widget.customAppBar,
                 appBarHeight: widget.appBarHeight,
-                sendIcon: widget.sendIcon, baseUrl:widget.baseUrl,))
+                sendIcon: widget.sendIcon,
+                baseUrl:widget.baseUrl,
+                enableFile:widget.enableFile ,
+              enableImage: widget.enableImage,
+              enableVoice: widget.enableVoice,
+              fileIcon: widget.fileIcon,
+              imageIcon: widget.imageIcon,
+              voiceIcon: widget.voiceIcon,
+
+            ))
 
     );
   }
